@@ -6,15 +6,15 @@ const config = {
   entry: path.join(__dirname, '../client/index.js'),
   output: {
     filename: 'bundle.[hash:8].js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, '../dist')
   },
   resolve: {
     extensions: ['.js', '.jsx', '.vue', '.styl'], // import引入文件的时候不用加后缀
     modules: [
       // 配置路径别名
       'node_modules',
-      path.resolve(__dirname, 'client/view'),
-      path.resolve(__dirname, 'client/assets')
+      path.resolve(__dirname, '../client/views'),
+      path.resolve(__dirname, '../client/assets')
     ]
   },
   module: {

@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 
 const baseConfig = require('./webpack.config.base');
+
 const isDev = process.env.NODE_ENV === 'development';
 
 const defaultPlugins = [
@@ -65,7 +66,7 @@ if (isDev) {
   config = merge(baseConfig, {
     mode: 'production', //'development' 'production'
     entry: {
-      app: path.join(__dirname, '../src/index.js'),
+      app: path.join(__dirname, '../client/index.js'),
       vendor: ['vue']
     },
     output: {
@@ -92,32 +93,7 @@ if (isDev) {
         }
       ]
     },
-    plugins: defaultPlugins.concat([new ExtractPlugin('styles.[hash:8].css')]),
-    optimization: {
-      splitChunks: {
-        chunks: 'async',
-        // 大于30KB才单独分离成chunk
-        minSize: 30000,
-        maxAsyncRequests: 5,
-        maxInitialRequests: 3,
-        name: true,
-        cacheGroups: {
-          default: {
-            priority: -20,
-            reuseExistingChunk: true
-          },
-          vendors: {
-            name: 'vendors',
-            test: /[\\/]node_modules[\\/]/,
-            priority: -10,
-            chunks: 'all'
-          }
-        }
-      },
-      runtimeChunk: {
-        name: entrypoint => `runtime~${entrypoint.name}`
-      }
-    }
+    plugins: defaultPlugins.concat([new ExtractPlugin('styles.[hash:8].css')])
   });
 }
 
